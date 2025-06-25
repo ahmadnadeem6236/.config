@@ -1,6 +1,6 @@
 {
   "edit_predictions": {
-    "mode": "eager",
+    "mode": "subtle",
     "copilot": {
       "proxy": null,
       "proxy_no_verify": null
@@ -8,15 +8,23 @@
     "enabled_in_text_threads": false
   },
   "agent": {
+    "profiles": {
+      "agent": {
+        "name": "Agent",
+        "tools": {
+                    "create_directory": false,
+                    "copy_path": false
+                },
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
     "default_profile": "ask",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+      "model": "claude-sonnet-4"
     },
     "version": "2"
-  },
-  "project_panel": {
-    "dock": "right"
   },
   "toolbar": {
     "breadcrumbs": true,
@@ -32,14 +40,7 @@
   "hide_mouse": "on_typing_and_movement",
   // Will be triggered manually with `ctrl-x ctrl-c`.
   "show_edit_predictions": false,
-  "inlay_hints": {
-    "enabled": false
-  },
-  "theme": "Catppuccin Mocha (Blur)",
-  "telemetry": {
-    "metrics": false,
-    "diagnostics": false
-  },
+  "theme": "One Dark Pro",
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 18,
@@ -68,47 +69,97 @@
   "vim": {
     "use_system_clipboard": "never"
   },
-  "languages": {
-    "TypeScript": {
-      "show_edit_predictions": true
-    },
-    "LaTeX": {
-      "soft_wrap": "preferred_line_length"
+  "wrap_guides": [90],
+  "show_wrap_guides": true,
+  "inlay_hints": {
+    "enabled": true
+  },
+  // Use zed commit editor
+  // File syntax highlighting
+  "file_types": {
+    "Dockerfile": ["Dockerfile", "Dockerfile.*"],
+    "JSON": ["json", "jsonc", "*.code-snippets"]
+  },
+  // File scan exclusions, hide on the file explorer and search
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    // above is default from Zed
+    "**/out",
+    "**/dist",
+    "**/.husky",
+    "**/.turbo",
+    "**/.vscode-test",
+    "**/.vscode",
+    "**/.next",
+    "**/.storybook",
+    "**/.tap",
+    "**/.nyc_output",
+    "**/report",
+    "**/node_modules"
+  ],
+  // Turn off telemetry
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  // Move all panel to the right
+  "project_panel": {
+    "button": true,
+    "dock": "right",
+    "git_status": true
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  // Move some unnecessary panels to the left
+  "notification_panel": {
+    "dock": "left"
+  },
+  "chat_panel": {
+    "dock": "left"
+  },
+  // LSP
+  "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "classAttribut": ["class", "className", "ngClass"]
+      }
     }
   },
-  "wrap_guides": [90],
-  "show_wrap_guides": true
-  // "experimental.theme_overrides": {
-  //   // Colors are taken from GitHub theme: https://github.com/PyaeSoneAungRgn/github-zed-theme/blob/main/themes/github_theme.json
-  //   "background.appearance": "blurred",
-  //   "background": "#0d1117b0",
-  //   "editor.background": "#0d111730",
-  //   "editor.gutter.background": "#0d111730",
-  //   "tab_bar.background": "#01040940",
-  //   "terminal.background": "#01040930",
-  //   "toolbar.background": "#0d111730",
-  //   "tab.active_background": "#0d111720",
-  //   "tab.inactive_background": "#01040900",
-  //   "status_bar.background": "#010409f0",
-  //   "title_bar.background": "#010409f0",
-  //   "panel.background": "#01040930",
-  //   "border.variant": "#3d444db3",
-  //   "scrollbar.track.border": "#00000000",
-  //   "editor.active_line.background": "#151b230f"
-  // }
-  // YouTube Use:
-  // "show_wrap_guides": false,
-  // "show_edit_predictions": false,
-  // "ui_font_size": 24,
-  // "buffer_font_size": 24,
-  // "preferred_line_length": 75,
-  // "soft_wrap": "preferred_line_length",
-  // "show_wrap_guides": false,
-  // "git": {
-  //   "git_gutter": "hide",
-  //   "inline_blame": {
-  //     "enabled": false
-  //   }
-  // }
-  // "format_on_save": "off"
+  "languages": {
+    // Refer https://zed.dev/docs/languages/javascript and https://zed.dev/docs/languages/typescript for more info
+    "TSX": {
+      // Refer https://github.com/jellydn/ts-inlay-hints for how to setup for Neovim and VSCode
+      "inlay_hints": {
+        "enabled": false,
+        "show_parameter_hints": false,
+        "show_other_hints": false,
+        "show_type_hints": false
+      }
+    },
+    "TypeScript": {
+      // Refer https://github.com/jellydn/ts-inlay-hints for how to setup for Neovim and VSCode
+      "inlay_hints": {
+        "enabled": false,
+        "show_parameter_hints": false,
+        "show_other_hints": false,
+        "show_type_hints": false
+      }
+    },
+    "Python": {
+      "format_on_save": { "language_server": { "name": "ruff" } },
+      "formatter": { "language_server": { "name": "ruff" } },
+      "language_servers": ["pyright", "ruff"]
+    }
+  }
 }

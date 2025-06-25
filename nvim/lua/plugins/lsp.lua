@@ -133,7 +133,7 @@ return { -- LSP Configuration & Plugins
               callSnippet = 'Replace',
             },
             telemetry = { enable = false },
-            diagnostics = { disable = { 'missing-fields' } },
+            diagnostics = { globals = { 'vim' } },
           },
         },
       },
@@ -155,45 +155,43 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
-      basedpyright = {
-        -- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
-        settings = {
-          basedpyright = {
-            disableOrganizeImports = true, -- Using Ruff's import organizer
-            disableLanguageServices = false,
-            analysis = {
-              ignore = { '*' }, -- Ignore all files for analysis to exclusively use Ruff for linting
-              typeCheckingMode = 'off',
-              diagnosticMode = 'openFilesOnly', -- Only analyze open files
-              useLibraryCodeForTypes = true,
-              autoImportCompletions = true, -- whether pyright offers auto-import completions
-            },
-          },
-        },
-      },
       ruff = {
         -- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
         -- Get isort like behavior: https://github.com/astral-sh/ruff/issues/8926#issuecomment-1834048218
         commands = {
           RuffAutofix = {
             function()
-              vim.lsp.buf.execute_command {
-                command = 'ruff.applyAutofix',
-                arguments = {
-                  { uri = vim.uri_from_bufnr(0) },
-                },
-              }
+              local clients = vim.lsp.get_clients { bufnr = 0 }
+              for _, client in ipairs(clients) do
+                if client.name == 'ruff' then
+                  client:exec_cmd {
+                    title = 'RuffAutofix',
+                    command = 'ruff.applyAutofix',
+                    arguments = {
+                      { uri = vim.uri_from_bufnr(0) },
+                    },
+                  }
+                  return
+                end
+              end
             end,
             description = 'Ruff: Fix all auto-fixable problems',
           },
           RuffOrganizeImports = {
             function()
-              vim.lsp.buf.execute_command {
-                command = 'ruff.applyOrganizeImports',
-                arguments = {
-                  { uri = vim.uri_from_bufnr(0) },
-                },
-              }
+              local clients = vim.lsp.get_clients { bufnr = 0 }
+              for _, client in ipairs(clients) do
+                if client.name == 'ruff' then
+                  client:exec_cmd {
+                    title = 'RuffOrganizeImports',
+                    command = 'ruff.applyOrganizeImports',
+                    arguments = {
+                      { uri = vim.uri_from_bufnr(0) },
+                    },
+                  }
+                  return
+                end
+              end
             end,
             description = 'Ruff: Format imports',
           },

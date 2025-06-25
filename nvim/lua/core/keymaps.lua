@@ -18,10 +18,10 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', '<Esc>', ':noh<CR>', { desc = 'No highlights' })
 
 -- save file
-vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', { desc = 'Save File' })
+vim.keymap.set('n', '<C-s>', '<cmd>noautocmd w <CR>', { desc = 'Save file without formatting' })
 vim.keymap.set('i', '<C-s>', '<cmd> w  <CR><Esc>', { desc = 'Save file insert mode and exit to it' })
 -- save file without auto-formatting
-vim.keymap.set('n', '<leader>sn', '<cmd>noautocmd w <CR>', { desc = 'Save file without formatting' })
+vim.keymap.set('n', '<leader>sn', '<cmd> w <CR>', { desc = 'Save file with formatting' })
 
 -- quit file
 vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', { desc = 'Quit file' })
