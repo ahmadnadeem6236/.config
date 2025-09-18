@@ -15,24 +15,23 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- clear highlights
-vim.keymap.set('n', '<Esc>', ':noh<CR>', opts)
+vim.keymap.set('n', '<Esc>', ':noh<CR>', { desc = 'No highlights' })
 
 -- save file
-vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
+vim.keymap.set('n', '<C-s>', '<cmd>noautocmd w <CR>', { desc = 'Save file without formatting' })
 vim.keymap.set('i', '<C-s>', '<cmd> w  <CR><Esc>', { desc = 'Save file insert mode and exit to it' })
-
--- save file without auto-formatting
-vim.keymap.set('n', '<leader>sn', '<cmd>noautocmd w <CR>', opts)
+-- save file auto-formatting
+vim.keymap.set('n', '<leader>sn', '<cmd> w <CR>', { desc = 'Save file with formatting' })
 
 -- quit file
-vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', opts)
+vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', { desc = 'Quit file' })
 
 -- delete single character without copying into register
-vim.keymap.set('n', 'x', '"_x', opts)
+vim.keymap.set('n', 'x', '"_x', { desc = 'Delete single char' })
 
 -- Vertical scroll and center
-vim.keymap.set('n', '<C-d>', '<C-d>zz', opts)
-vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up' })
 
 -- Find and center
 vim.keymap.set('n', 'n', 'nzzzv')
@@ -45,11 +44,11 @@ vim.keymap.set('n', '<Left>', ':vertical resize -2<CR>', opts)
 vim.keymap.set('n', '<Right>', ':vertical resize +2<CR>', opts)
 
 -- Buffers
-vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
-vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', opts)
-vim.keymap.set('n', '<C-i>', '<C-i>', opts) -- to restore jump forward
-vim.keymap.set('n', '<leader>xb', ':Bdelete!<CR>', opts) -- close buffer
-vim.keymap.set('n', '<leader>b', '<cmd> enew <CR>', opts) -- new buffer
+vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>bn', '<cmd> enew <CR>', { desc = 'New buffer' }) -- new buffer
+vim.keymap.set('n', '<leader>bx', ':Bdelete!<CR>', { desc = 'Close buffer' }) -- close buffer
+vim.keymap.set('n', '<leader>bc', '<cmd> %bd|e# <CR>', { desc = 'Close all buffers except open one' }) -- new buffer
 
 -- Increment/decrement numbers
 vim.keymap.set('n', '<leader>+', '<C-a>', opts) -- increment
@@ -59,7 +58,7 @@ vim.keymap.set('n', '<leader>-', '<C-x>', opts) -- decrement
 vim.keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
 vim.keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
 vim.keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal width & height
-vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
+vim.keymap.set('n', '<leader>sx', ':close<CR>', opts) -- close current split window
 
 -- Navigate between splits
 vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', opts)
@@ -105,21 +104,14 @@ vim.keymap.set('n', '<leader>do', function()
   diagnostics_active = not diagnostics_active
 
   if diagnostics_active then
-    vim.diagnostic.enable(true)
+    vim.diagnostic.enable()
   else
     vim.diagnostic.enable(false)
   end
 end)
-
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', function()
-  vim.diagnostic.jump { count = -1, float = true }
-end, { desc = 'Go to previous diagnostic message' })
-
-vim.keymap.set('n', ']d', function()
-  vim.diagnostic.jump { count = 1, float = true }
-end, { desc = 'Go to next diagnostic message' })
-
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 

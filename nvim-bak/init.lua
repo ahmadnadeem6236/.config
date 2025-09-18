@@ -15,30 +15,30 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-
--- Setup plugins
+-- Setup plugin
 require('lazy').setup({
   require 'plugins.themes.solarized',
+  require 'plugins.supermaven',
   require 'plugins.telescope',
   require 'plugins.treesitter',
+  require 'plugins.tailwind-tools',
   require 'plugins.lsp',
   require 'plugins.autocompletion',
-  require 'plugins.none-ls',
+  require 'plugins.autoformatting',
   require 'plugins.lualine',
   require 'plugins.bufferline',
   require 'plugins.neo-tree',
-  require 'plugins.oil',
-  require 'plugins.alpha',
   require 'plugins.indent-blankline',
   require 'plugins.lazygit',
   require 'plugins.comment',
   require 'plugins.debug',
+  require 'plugins.nvim-surround',
   require 'plugins.gitsigns',
   require 'plugins.database',
   require 'plugins.misc',
   require 'plugins.harpoon',
-  -- require 'plugins.avante',
   require 'plugins.aerial',
+  require 'plugins.ui',
   require 'plugins.vim-tmux-navigator',
 }, {
   ui = {

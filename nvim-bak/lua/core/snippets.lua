@@ -17,15 +17,7 @@ vim.diagnostic.config {
   underline = false,
   update_in_insert = true,
   float = {
-    source = true, -- Or "if_many"
-  },
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = ' ',
-      [vim.diagnostic.severity.WARN] = ' ',
-      [vim.diagnostic.severity.INFO] = ' ',
-      [vim.diagnostic.severity.HINT] = '󰌵 ',
-    },
+    source = 'always', -- Or "if_many"
   },
   -- Make diagnostic background transparent
   on_ready = function()
@@ -42,12 +34,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
--- Set kitty terminal padding to 0 when in nvim
-vim.cmd [[
-  augroup kitty_mp
-  autocmd!
-  au VimLeave * :silent !kitty @ set-spacing padding=default margin=default
-  au VimEnter * :silent !kitty @ set-spacing padding=0 margin=0 3 0 3
-  augroup END
-]]

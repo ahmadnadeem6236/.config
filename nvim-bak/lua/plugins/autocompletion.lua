@@ -23,7 +23,7 @@ return { -- Autocompletion
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
-
+    'brenoprata10/nvim-highlight-colors',
     -- Adds a number of user-friendly snippets
     'rafamadriz/friendly-snippets',
   },
@@ -32,6 +32,8 @@ return { -- Autocompletion
     require('luasnip.loaders.from_vscode').lazy_load()
     local luasnip = require 'luasnip'
     luasnip.config.setup {}
+
+    require('nvim-highlight-colors').setup {} -- Ensure this is set up
 
     local kind_icons = {
       Text = '󰉿',
@@ -73,10 +75,10 @@ return { -- Autocompletion
       --     documentation = cmp.config.window.bordered(),
       -- },
       mapping = cmp.mapping.preset.insert {
-        ['<C-j>'] = cmp.mapping.select_next_item(),       -- Select the [n]ext item
-        ['<C-k>'] = cmp.mapping.select_prev_item(),       -- Select the [p]revious item
+        ['<C-j>'] = cmp.mapping.select_next_item(), -- Select the [n]ext item
+        ['<C-k>'] = cmp.mapping.select_prev_item(), -- Select the [p]revious item
         ['<CR>'] = cmp.mapping.confirm { select = true }, -- Accept the completion with Enter.
-        ['<C-c>'] = cmp.mapping.complete {},              -- Manually trigger a completion from nvim-cmp.
+        ['<C-c>'] = cmp.mapping.complete {}, -- Manually trigger a completion from nvim-cmp.
 
         -- Think of <c-l> as moving to the right of your snippet expansion.
         --  So if you have a snippet that's like:
@@ -98,24 +100,24 @@ return { -- Autocompletion
         end, { 'i', 's' }),
 
         -- Select next/previous item with Tab / Shift + Tab
-        ['<Tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
+        -- ['<Tab>'] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     cmp.select_next_item()
+        --   elseif luasnip.expand_or_locally_jumpable() then
+        --     luasnip.expand_or_jump()
+        --   else
+        --     fallback()
+        --   end
+        -- end, { 'i', 's' }),
+        -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     cmp.select_prev_item()
+        --   elseif luasnip.locally_jumpable(-1) then
+        --     luasnip.jump(-1)
+        --   else
+        --     fallback()
+        --   end
+        -- end, { 'i', 's' }),
       },
       sources = {
         { name = 'nvim_lsp' },
