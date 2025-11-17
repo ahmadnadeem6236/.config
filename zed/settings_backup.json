@@ -9,12 +9,41 @@
   },
   "agent": {
     "profiles": {
+      "minimal": {
+        "name": "Minimal",
+        "tools": {
+          "diagnostics": true
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      },
+      "ask": {
+        "name": "Ask",
+        "tools": {
+          "edit_file": false,
+          "contents": true,
+          "diagnostics": true,
+          "fetch": true,
+          "list_directory": true,
+          "project_notifications": false,
+          "now": true,
+          "find_path": true,
+          "read_file": true,
+          "open": true,
+          "grep": true,
+          "thinking": true,
+          "web_search": true
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      },
       "agent": {
         "name": "Agent",
         "tools": {
-                    "create_directory": false,
-                    "copy_path": false
-                },
+          "web_search": true,
+          "create_directory": false,
+          "copy_path": false
+        },
         "enable_all_context_servers": false,
         "context_servers": {}
       }
@@ -23,8 +52,7 @@
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4"
-    },
-    "version": "2"
+    }
   },
   "toolbar": {
     "breadcrumbs": true,
@@ -34,13 +62,12 @@
   "ui_font_family": "Monaspace Neon",
   "buffer_font_family": "Monaspace Neon",
   "features": {
-    "edit_prediction_provider": "zed",
-    "copilot": false
+    "edit_prediction_provider": "zed"
   },
   "hide_mouse": "on_typing_and_movement",
   // Will be triggered manually with `ctrl-x ctrl-c`.
   "show_edit_predictions": false,
-  "theme": "One Dark Pro",
+  "theme": "Zedokai Darker (Filter Spectrum)",
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 18,
@@ -63,7 +90,7 @@
   "git": {
     "git_gutter": "tracked_files",
     "inline_blame": {
-      "enabled": true
+      "enabled": false
     }
   },
   "vim": {
@@ -119,7 +146,7 @@
     "dock": "right"
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": null
   },
   // Move some unnecessary panels to the left
   "notification_panel": {
@@ -156,9 +183,19 @@
         "show_type_hints": false
       }
     },
+    "JavaScript": {
+      // Refer https://github.com/jellydn/ts-inlay-hints for how to setup for Neovim and VSCode
+      "inlay_hints": {
+        "enabled": false,
+        "show_parameter_hints": false,
+        "show_other_hints": false,
+        "show_type_hints": false
+      }
+    },
     "Python": {
-      "format_on_save": { "language_server": { "name": "ruff" } },
-      "formatter": { "language_server": { "name": "ruff" } },
+      "formatter": {
+        "language_server": { "name": "ruff" }
+      },
       "language_servers": ["pyright", "ruff"]
     }
   }

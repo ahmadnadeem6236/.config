@@ -1,4 +1,5 @@
 {
+  "format_on_save": "off",
   "edit_predictions": {
     "mode": "subtle",
     "copilot": {
@@ -72,7 +73,7 @@
   "ui_font_size": 16,
   "buffer_font_size": 18,
   "cursor_blink": false,
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "tab_bar": {
     "show": true
   },
@@ -193,8 +194,9 @@
       }
     },
     "Python": {
-      "format_on_save": { "language_server": { "name": "ruff" } },
-      "formatter": { "language_server": { "name": "ruff" } },
+      "formatter": {
+        "language_server": { "name": "ruff" }
+      },
       "language_servers": ["pyright", "ruff"]
     }
   }
